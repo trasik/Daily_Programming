@@ -1,0 +1,3 @@
+# Ignore the .idea and out folder from intellij
+.idea/
+out/
