@@ -71,5 +71,9 @@ public class Driver {
         for(int i = 0; i < list.getSize(); i++) {
             System.out.print(list.get(i) + " ");
         }
+        System.out.println();
+
+        list.clear();
+        printListAndProperties();
     }
 }

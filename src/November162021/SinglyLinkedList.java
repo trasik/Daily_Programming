@@ -34,14 +34,18 @@ public class SinglyLinkedList<T> {
     public void add(T data) {
         //Create a new node with given node
         SinglyLinkedNode<T> node = new SinglyLinkedNode<>(data);
-
-        //Loop through the list till you reach the last node
-        SinglyLinkedNode<T> current = this.head;
-        while(current.getNext() != null) {
-            current = current.getNext();
+        //If the list is already empty then update the head to the new node
+        if(isEmpty()) {
+            this.head = node;
+        } else {
+            //Loop through the list till you reach the last node
+            SinglyLinkedNode<T> current = this.head;
+            while(current.getNext() != null) {
+                current = current.getNext();
+            }
+            //Set the next node of the last node in the list to the new node
+            current.setNext(node);
         }
-        //Set the next node of the last node in the list to the new node
-        current.setNext(node);
         //increase the size
         size++;
     }
@@ -111,6 +115,11 @@ public class SinglyLinkedList<T> {
         }
         //Return the Node at the index
         return current;
+    }
+
+    public void clear() {
+        this.head = null;
+        this.size = 0;
     }
 
     //Pretty print method for the list
