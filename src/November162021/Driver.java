@@ -35,7 +35,7 @@ public class Driver {
 
     public static void removeFromTheFrontOfList(int size) {
         for(int i = 0; i < size; i++) {
-            SinglyLinkedNode<Integer> removed = list.removeFront();
+            SinglyLinkedNode<Integer> removed = list.removeFirst();
             System.out.println("Removed: " + removed.toString());
         }
         System.out.println();

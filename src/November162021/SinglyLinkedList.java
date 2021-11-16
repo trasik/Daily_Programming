@@ -59,7 +59,7 @@ public class SinglyLinkedList<T> {
     }
 
     //Remove a node from the front of the list
-    public SinglyLinkedNode<T> removeFront() {
+    public SinglyLinkedNode<T> removeFirst() {
         //If the list is empty then there's no node to remove
         if(isEmpty()) {
             return null;
