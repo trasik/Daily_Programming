@@ -41,3 +41,15 @@ A video player plays a game in which the character competes in a hurdle race. Hu
 
 * 1 &leq; n, k &leq; 100
 * 1 &leq; height[i] &leq; 100
+
+## November 16, 2021
+
+### Implementation of Singly LinkedList
+
+#### Updates
+
+- Implements a standard Singly Linked List data structure
+- Adds the methods isEmpty, getSize, getFirst add, addFirst, removeFirst, contains, and get
+- Adds testing to the Driver class to test all the methods for functionality
+- Adds a check to the add method to check if the list is empty ? set the head to new node : carry on with rest of the add
+- Adds a clear function to completely remove the list by setting the head to null
