@@ -53,6 +53,22 @@ public class LinkedList<T>{
         size++;
     }
 
+    private void addTailLinkBefore(int index, T data) {
+        Node<T> nodeAtIndex = this.head;
+        for(int i = 0; i < index; i++) {
+            nodeAtIndex = nodeAtIndex.getNext();
+        }
+        Node<T> nodeAtIndexPrev = nodeAtIndex.getPrev();
+        Node<T> newNode = new Node<>(data, nodeAtIndexPrev, nodeAtIndex);
+        if(nodeAtIndexPrev == null) {
+            this.head = newNode;
+        } else {
+            nodeAtIndexPrev.setNext(newNode);
+        }
+        nodeAtIndex.setPrev(newNode);
+        size++;
+    }
+
     private T removeHeadLink() {
         //Store the current heads data
         T removedData = this.head.getData();
@@ -76,6 +92,17 @@ public class LinkedList<T>{
 
     public void add(T data) {
         addTailLink(data);
+    }
+
+    public void add(int index, T data) {
+        if(index <  0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if(index == size) {
+            addLast(data);
+        } else {
+            addTailLinkBefore(index, data);
+        }
     }
 
     public void addLast(T data) {
@@ -104,13 +131,58 @@ public class LinkedList<T>{
         return removeHeadLink();
     }
 
+    public T remove(int index) {
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException();
+        }
+        //Get the node to be removed based on the index
+        Node<T> nodeToRemove = this.head;
+        for(int i = 0; i < index; i++) {
+            nodeToRemove = nodeToRemove.getNext();
+        }
+
+        //Get the Previous, Next and Data properties of the node to be removed
+        T nodeToRemoveData = nodeToRemove.getData();
+        Node<T> nodeToRemovePrev = nodeToRemove.getPrev();
+        Node<T> nodeToRemoveNext = nodeToRemove.getNext();
+
+        //If the previous node is null then it's the head
+        if(nodeToRemovePrev == null) {
+            //Set the head of the list to the next Node of the node to be removed
+            this.head = nodeToRemoveNext;
+        } else {
+            //Set the next node of the previous node  to the node after the removed node
+            nodeToRemovePrev.setNext(nodeToRemoveNext);
+            //Set the previous value of the removed node to null GC
+            nodeToRemove.setPrev(null);
+        }
+
+        //If the next node is null then it's the tail
+        if(nodeToRemoveNext == null) {
+            //Set the tail of the list to the previous Node of the node to be removed
+            this.tail = nodeToRemovePrev;
+        } else {
+            //Set the previous value of the Node next to the one removed to the previous node
+            nodeToRemoveNext.setPrev(nodeToRemovePrev);
+            //Set the next value of the removed node to null GC
+            nodeToRemove.setNext(null);
+        }
+
+        //Remove the data inside the node for GC
+        nodeToRemove.setData(null);
+        //Decrease the size
+        size--;
+
+        return nodeToRemoveData;
+    }
+
     public T removeFirst() {
         if(this.head == null) throw new NoSuchElementException();
         return removeHeadLink();
     }
 
     public T get(int index) {
-        if (index < 0 || index >= this.size) {
+        if (index < 0 || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> current = this.head;

@@ -16,6 +16,15 @@ public class Driver {
         printListAndProperties();
         System.out.println("Removed: " + list.remove());
         printListAndProperties();
+
+        list.add(0, 1000);
+        list.add(list.getSize(), 8888);
+        list.add(5, 22222);
+        list.add(8, 4323);
+        printListAndProperties();
+        list.remove(list.getSize() - 1);
+        list.remove(0);
+        printListAndProperties();
     }
 
     private static void printListAndProperties() {
@@ -24,6 +33,7 @@ public class Driver {
         System.out.println("Empty?: " + list.isEmpty());
         System.out.println("First: " + list.getFirst());
         System.out.println("Last: " + list.getLast());
+        System.out.println("Size: " + list.getSize());
         System.out.println();
     }
 
