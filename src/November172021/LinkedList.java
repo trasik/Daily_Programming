@@ -1,6 +1,6 @@
 package November172021;
 
-import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedList<T>{
 
@@ -36,7 +36,7 @@ public class LinkedList<T>{
         return false;
     }
 
-    public void add(T data) {
+    private void addTailLink(T data) {
         //Create a new node with the given data with the tail as it's prev node and the next node to null
         Node<T> node = new Node<>(data, this.tail, null);
         //If the tail of the list is null, then it's the first node to be added
@@ -53,7 +53,63 @@ public class LinkedList<T>{
         size++;
     }
 
-    public Node<T> get(int index) {
+    private T removeHeadLink() {
+        //Store the current heads data
+        T removedData = this.head.getData();
+        //Get the heads next node
+        Node<T> headNext = this.head.getNext();
+        //If the next node is null then set the tail to null
+        if(headNext == null) {
+            this.tail = null;
+        } else {
+            //More than 1 node in the list so set the next nodes previous value to null
+            headNext.setPrev(null);
+        }
+        //Help GC by setting current head properties to null
+        this.head.setNext(null);
+        this.head.setData(null);
+        this.head = headNext;
+        //Decrease the size of the list
+        size--;
+        return removedData;
+    }
+
+    public void add(T data) {
+        addTailLink(data);
+    }
+
+    public void addLast(T data) {
+        addTailLink(data);
+    }
+
+    public void addFirst(T data) {
+        //Create a new node with the given data with the head as it's next node and the prev node to null
+        Node<T> node = new Node<>(data, null, this.head);
+        //If the head of the list is null, then it's the first node to be added
+        if(this.head == null) {
+            //Set the tail of the list to the new node
+            this.tail = node;
+        } else {
+            //Set the current heads previous node to the new node
+            this.head.setPrev(node);
+        }
+        //Update the head of the list to the new node
+        this.head = node;
+        //Update the size of the list
+        size++;
+    }
+
+    public T remove() {
+        if(this.head == null) throw new NoSuchElementException();
+        return removeHeadLink();
+    }
+
+    public T removeFirst() {
+        if(this.head == null) throw new NoSuchElementException();
+        return removeHeadLink();
+    }
+
+    public T get(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -61,7 +117,17 @@ public class LinkedList<T>{
         for(int i = 0; i < index; i++) {
             current = current.getNext();
         }
-        return current;
+        return current.getData();
+    }
+
+    public T getFirst() {
+        if(this.head == null) throw new NoSuchElementException();
+        return this.head.getData();
+    }
+
+    public T getLast() {
+        if(this.tail == null) throw new NoSuchElementException();
+        return this.tail.getData();
     }
 
     public String toString() {
