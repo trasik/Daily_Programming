@@ -53,3 +53,17 @@ A video player plays a game in which the character competes in a hurdle race. Hu
 - Adds testing to the Driver class to test all the methods for functionality
 - Adds a check to the add method to check if the list is empty ? set the head to new node : carry on with rest of the add
 - Adds a clear function to completely remove the list by setting the head to null
+
+## November 17, 2021
+
+### Implementation of Doubly LinkedList
+
+#### Updates
+
+- Implements a Node class with three properties prev, next, and data
+- Implements the getSize, isEmpty, contains, add, get, and toString methods
+- Added addTailLink helper method to connect with the add and addLast methods
+- Added removeHeadLink helper method to connect with the removeFirst and remove methods
+- Added getFirst and getLast auxiliary methods
+- Added a new add method to add at a certain index with the help of auxiliary method addLinkBefore
+- Added remove at a certain index which internally helps garbage collection
